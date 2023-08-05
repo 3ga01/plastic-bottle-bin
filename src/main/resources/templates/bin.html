@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Bin level</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <style>
+      .bins-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .bin-container {
+        width: 100px;
+        height: 200px;
+        border: 1px solid #000;
+        background-color: #f0f0f0;
+        position: relative;
+        overflow: hidden; /* Ensure the fill doesn't overflow the bin */
+      }
+
+      .bin-level {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }
+
+      .bin-level-1 {
+        height: 0;
+        background: linear-gradient(
+          to top,
+          #4caf50,
+          #f0f0f0
+        ); /* Green to background color */
+      }
+
+      .bin-level-2 {
+        height: 0;
+        background: linear-gradient(
+          to top,
+          #ffc107,
+          #f0f0f0
+        ); /* Yellow to background color */
+      }
+
+      .bin-level-3 {
+        height: 0;
+        background: linear-gradient(
+          to top,
+          #ff0000,
+          #f0f0f0
+        ); /* Red to background color */
+      }
+
+      @media (max-width: 600px) {
+        .bins-container {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div th:each="data : ${data}">
+      <div class="bins-container">
+        <div>
+          <p>Bin 1: <span th:text="${data.distance_1}"></span> cm</p>
+          <div class="bin-container">
+            <div
+              class="bin-level bin-level-1"
+              th:style="'height:' + ${data.distance_1} + 'cm;'"
+            ></div>
+          </div>
+        </div>
+
+        <div>
+          <p>Bin 2: <span th:text="${data.distance_2}"></span> cm</p>
+          <div class="bin-container">
+            <div
+              class="bin-level bin-level-2"
+              th:style="'height:' + ${data.distance_2} + 'cm;'"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
