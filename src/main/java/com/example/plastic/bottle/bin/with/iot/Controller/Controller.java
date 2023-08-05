@@ -19,26 +19,25 @@ import com.example.plastic.bottle.bin.with.iot.Repository.DataRepository;
 @RestController
 public class Controller {
 
-    @Autowired DataRepository dataRepo;
+    @Autowired
+    DataRepository dataRepo;
 
-    
     @PostMapping("/bin")
-    public String handleData(@RequestBody Data data,Model model){
+    public String handleData(@RequestBody Data data, Model model) {
         System.out.println(data.getDistance_1());
-                        System.out.println(data.getDistance_2());
-
-                dataRepo.save(data);
+        System.out.println(data.getDistance_2());
+        data.setSensor_id(2);
+        dataRepo.save(data);
         return "received";
     }
 
     @GetMapping("/bin")
-    public ModelAndView show(Model model){
+    public ModelAndView show(Model model) {
 
         List<Data> data = dataRepo.findAll();
 
         model.addAttribute("data", data);
         return new ModelAndView("bin");
     }
-
 
 }
