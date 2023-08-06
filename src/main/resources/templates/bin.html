@@ -55,6 +55,16 @@
         ); /* Red to background color */
       }
 
+      .bin-level-full {
+        height: 100%;
+        background-color: #ff0000; /* Red - indicates the bin is full */
+      }
+
+      .bin-level-empty {
+        height: 0;
+        background-color: #f0f0f0; /* Background color - indicates the bin is empty */
+      }
+
       @media (max-width: 600px) {
         .bins-container {
           flex-direction: column;
@@ -71,7 +81,7 @@
           <div class="bin-container">
             <div
               class="bin-level bin-level-1"
-              th:style="'height:' + ${data.distance_1} + 'cm;'"
+              th:style="'height:' + ${data.distance_1} + 'cm;' + (${data.distance_1} >= 20 ? 'background-color: #ff0000;' : '')"
             ></div>
           </div>
         </div>
@@ -81,7 +91,7 @@
           <div class="bin-container">
             <div
               class="bin-level bin-level-2"
-              th:style="'height:' + ${data.distance_2} + 'cm;'"
+              th:style="'height:' + ${data.distance_2} + 'cm;' + (${data.distance_2} >= 20 ? 'background-color: #ff0000;' : '')"
             ></div>
           </div>
         </div>
