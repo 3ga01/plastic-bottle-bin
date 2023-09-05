@@ -1,5 +1,6 @@
 package com.example.plastic.bottle.bin.with.iot.Controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,19 @@ public class Controller {
 
     @PostMapping("/bin")
     public String handleData(@RequestBody Data data, Model model) {
-        System.out.println(data.getDistance_1());
-        System.out.println(data.getDistance_2());
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
+        System.out.println(decimalFormat.format(Math.abs(data.getDistance_1() - 52)));
+        System.out.println(decimalFormat.format(Math.abs(data.getDistance_2() - 53)));
+        String a = decimalFormat.format(Math.abs(data.getDistance_1() - 52));
+        String b = decimalFormat.format(Math.abs(data.getDistance_2() - 53));
+
+        double c = Double.parseDouble(a);
+        double d = Double.parseDouble(b);
+        data.setDistance_1(c);
+        data.setDistance_2(d);
+
         data.setSensor_id(2);
         dataRepo.save(data);
         return "received";

@@ -6,9 +6,22 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: monospace;
 }
 
-h1 {
+#frame {
+  margin-top: 50px;
+  background-color: rgba(2, 2, 2, 0.5);
+  width: 50%;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+/* h1 {
   color: white;
   text-align: center;
   margin-top: 35%;
@@ -20,11 +33,63 @@ h1 {
     justify-content: center;
     width: 40%;
 }
-
+*/
 .button{
-    /* margin: 20px; */
+    margin: 20px; 
     background:rgb(236, 79, 29) ;
     padding: 8px 35px;
     border-radius: 5px;
     border: none;
+    color: white;
+} 
+#home-welcome{
+    color: rgb(250, 238, 238);
+    text-align: center;
+    margin-top: 35%;
+    font-weight: bold;
+
 }
+
+#home-icon{
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+      border-radius: 100px;
+        background-image: url("/images/bin.jpg");
+       background-position: 50% 50%;
+      background-size: cover;
+}
+
+#bin1{
+   width: 200px;
+   height: 200px;
+}
+
+#bin2 {
+  width: 200px;
+  height: 200px;
+}
+
+#bin-container{
+  background-color: rgba(252, 249, 249, 0.938);
+  height: 300px;
+  width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.bin-text{
+  color: rgb(161, 144, 144);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#daily-stats{
+  width: 100%;
+  margin-top: 20px;
+  background-color: rgba(253, 253, 253, 0.979);
+  
+ 
+} 

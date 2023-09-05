@@ -1,80 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <head>
-    <title>Bin level</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-    <style>
-      .bins-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .bin-container {
-        width: 100px;
-        height: 200px;
-        border: 1px solid #000;
-        background-color: #f0f0f0;
-        position: relative;
-        overflow: hidden; /* Ensure the fill doesn't overflow the bin */
-      }
-
-      .bin-level {
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-      }
-
-      .bin-level-1 {
-        height: 0;
-        background: linear-gradient(
-          to top,
-          #4caf50,
-          #f0f0f0
-        ); /* Green to background color */
-      }
-
-      .bin-level-2 {
-        height: 0;
-        background: linear-gradient(
-          to top,
-          #ffc107,
-          #f0f0f0
-        ); /* Yellow to background color */
-      }
-
-      .bin-level-3 {
-        height: 0;
-        background: linear-gradient(
-          to top,
-          #ff0000,
-          #f0f0f0
-        ); /* Red to background color */
-      }
-
-      .bin-level-full {
-        height: 100%;
-        background-color: #ff0000; /* Red - indicates the bin is full */
-      }
-
-      .bin-level-empty {
-        height: 0;
-        background-color: #f0f0f0; /* Background color - indicates the bin is empty */
-      }
-
-      @media (max-width: 600px) {
-        .bins-container {
-          flex-direction: column;
-          align-items: center;
-        }
-      }
-    </style>
+    <title>Bin level</title>
   </head>
   <body>
-    <div th:each="data : ${data}">
+    <!-- <div th:each="data : ${data}">
       <div class="bins-container">
         <div>
           <p>Bin 1: <span th:text="${data.distance_1}"></span> cm</p>
@@ -96,6 +28,114 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div th:each="data : ${data}">
+      <input
+        type="text"
+        id="dist1"
+        style="display: none"
+        th:value="${data.distance_1}"
+      />
+      <input
+        type="text"
+        id="dist2"
+        style="display: none"
+        th:value="${data.distance_2}"
+      />
     </div>
+
+    <div id="bin-container">
+      <div>
+        <h2 class="bin-text">PLASTICS</h2>
+        <canvas id="bin1"></canvas>
+      </div>
+      <div>
+        <h2 class="bin-text">OTHER WASTE</h2>
+
+        <canvas id="bin2"></canvas>
+      </div>
+    </div>
+
+    <div>
+      <canvas id="daily-stats"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      var data1 = document.getElementById("dist1").value;
+      var dist2 = document.getElementById("dist2").value;
+      var l1 = 53 - data1;
+      var l2 = 40 - dist2;
+      const ctx = document.getElementById("bin1");
+      const ctx2 = document.getElementById("bin2");
+      const ctx3 = document.getElementById("daily-stats");
+
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          datasets: [
+            {
+              data: [data1, l1],
+              backgroundColor: ["red", "green"],
+              hoverOffset: 4,
+            },
+          ],
+        },
+      });
+
+      new Chart(ctx2, {
+        type: "pie",
+        data: {
+          datasets: [
+            {
+              data: [dist2, l2],
+              backgroundColor: ["red", "green"],
+              hoverOffset: 4,
+            },
+          ],
+        },
+      });
+
+      new Chart(ctx3, {
+        type: "radar",
+        data: {
+          labels: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          datasets: [
+            {
+              label: "Daily waste",
+              data: [18, 29, 13, 45, 12, 37, 42],
+              fill: true,
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgb(255, 99, 132)",
+              pointBackgroundColor: "rgb(255, 99, 132)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgb(255, 99, 132)",
+            },
+            {
+              label: "Daily waste",
+              data: [72, 19, 3, 15, 12, 18, 52],
+              fill: true,
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              borderColor: "rgb(54, 162, 235)",
+              pointBackgroundColor: "rgb(54, 162, 235)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgb(54, 162, 235)",
+            },
+          ],
+        },
+      });
+    </script>
   </body>
 </html>
